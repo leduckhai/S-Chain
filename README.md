@@ -1,4 +1,4 @@
-# TracGPT
+# TracGPT: Multilingual Multistep Visual Chain-of-Thought
 
 Project overview:
 
