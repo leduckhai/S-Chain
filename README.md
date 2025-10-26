@@ -107,7 +107,7 @@ Each ```*.jsonl``` record contains:
 | `exgra-med-dci-pathvqa`               | Fine-tuned on PATH-VQA                     | [Link](https://huggingface.co/MERGE-Group/exgra-med-dci-pathvqa)     |
 
 <!-- --- -->
-Before starting the finetuning/inference/evaluation, download our finetuned checkpoints.
+Before starting the finetuning/inference/evaluation, download our finetuned checkpoints and put it inside ```architectures/model_name/checkpoints```
 <details>
   <summary>Download Checkpoints</summary>
 
@@ -132,7 +132,7 @@ huggingface-cli download --resume-download --local-dir-use-symlinks False MERGE-
 
 
 ## II. Run inference with a pretrained checkpoint
-Below: load **ExGra-Med** fine-tuned on SV-CoT from Hugging Face and generate answer + grounded rationale.
+Below: load **ExGra-Med** fine-tuned on SV-CoT from Hugging Face and generate answer and grounded rationale.
 
 ```
 python experiments/run_infer_demo.py \
