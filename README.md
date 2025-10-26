@@ -94,16 +94,16 @@ Each ```*.jsonl``` record contains:
 
 | Model                                  | Description                                |🤗 Download Link |
 |----------------------------------------|--------------------------------------------|---------------|
-| `llava-med-base`                            | LLaVa-Med (10% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/llava-med-10)     |
-| `llava-med-gpt-cot`                            | LLaVa-Med (40% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
-| `llava-med-gpt-schain`                            | LLaVa-Med (40% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
-| `llava-med-gpt-medrag-only`                            | LLaVa-Med (40% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
-| `llava-med-gpt-medrag-schain`                            | LLaVa-Med (40% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
-| `exgra-med-base`                            | LLaVa-Med (10% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/llava-med-10)     |
-| `exgra-med-gpt-cot`                            | LLaVa-Med (40% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
-| `exgra-med-gpt-schain`                            | LLaVa-Med (40% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
-| `exgra-med-gpt-medrag-only`                            | LLaVa-Med (40% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
-| `exgra-med-gpt-medrag-schain`                            | LLaVa-Med (40% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
+| `llava-med-base`                            | LLaVa-Med trained with base settings (Q4 only)                 | [Link](https://huggingface.co/MERGE-Group/llava-med-10)     |
+| `llava-med-gpt-cot`                            | LLaVa-Med trained with GPT-synthetic visual COT                   | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
+| `llava-med-gpt-schain`                            | LLaVa-Med trained with our S-Chain dataset                  | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
+| `llava-med-gpt-medrag-only`                            | LLaVa-Med with medical retrieval augmented generation and Q4 only                  | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
+| `llava-med-gpt-medrag-schain`                            | LLaVa-Med with medical retrieval augmented generation and S-Chian                  | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
+| `exgra-med-base`                            | ExGra-Med trained with base settings (Q4 only)                    | [Link](https://huggingface.co/MERGE-Group/llava-med-10)     |
+| `exgra-med-gpt-cot`                            | ExGra-Med trained with GPT-synthetic visual COT                    | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
+| `exgra-med-gpt-schain`                            |ExGra-Med trained with our S-Chain dataset                     | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
+| `exgra-med-gpt-medrag-only`                            | ExGra-Med with medical retrieval augmented generation and Q4 only                 | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
+| `exgra-med-gpt-medrag-schain`                            | ExGra-Med with medical retrieval augmented generation and S-Chian                    | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
 | `exgra-med-dci-pathvqa`               | Fine-tuned on PATH-VQA                     | [Link](https://huggingface.co/MERGE-Group/exgra-med-dci-pathvqa)     |
 
 <!-- --- -->
