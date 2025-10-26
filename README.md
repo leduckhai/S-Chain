@@ -115,6 +115,42 @@ without our SV-CoT supervision.
 
 All training/eval configs for each model live in ```s_chain/configs/<model_name>/```.
 
+To **train** a model (e.g., **LLAVA-Med**) with any setting:
+
+```
+python experiments/run_finetune.py \
+    --config s_chain/configs/llava_med/rag_plus_sv_cot.yaml \
+    --output_dir runs/llava_med/rag_plus_sv_cot/
+```
+
+To **evaluate**:
+
+```
+python experiments/run_eval.py \
+    --checkpoint runs/llava_med/rag_plus_sv_cot/ckpt_final.pt \
+    --split test
+```
+
+
+## Citation
+If you find this work useful, please cite our paper:
+
+```
+@article{leduc2025schain,
+  title={S-Chain: Structured Visual Chain-of-Thought for Medicine},
+  author={Le-Duc, Khai and Trinh, Phuong T. H. and Nguyen, Duy M. H. and Nguyen, Tien-Phat and Diep, Nghiem T. and Ngo, An and Vu, Tung and Vuong, Trinh and Nguyen, Anh-Tien and Nguyen, Mau and Hoang, Van Trung and Nguyen, Khai-Nguyen and Nguyen, Hy and Ngo, Chris and Liu, Anji and Ho, Nhat and Hauschild, Anne-Christin and Nguyen, Khanh Xuan and Nguyen-Tang, Thanh and Xie, Pengtao and Sonntag, Daniel and Zou, James and Niepert, Mathias and Nguyen, Anh Totti},
+  journal={arXiv preprint},
+  year={2025}
+}
+
+```
+
+## ⚖️ Important Notice on Dataset Usage
+
+The S-Chain dataset is provided solely for research and educational purposes.
+It may contain human or machine annotation errors, as well as potential biases or inconsistencies inherent to medical data.
+Users are expected to exercise appropriate caution in interpretation and ensure ethical and non-commercial use.
+
 
 
 
