@@ -90,6 +90,44 @@ Each ```*.jsonl``` record contains:
 }
 ```
 
+### 📦 Model Checkpoints
+
+| Model                                  | Description                                |🤗 Download Link |
+|----------------------------------------|--------------------------------------------|---------------|
+| `llava-med-10`                            | LLaVa-Med (10% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/llava-med-10)     |
+| `llava-med-40`                            | LLaVa-Med (40% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/llava-med-40)     |
+| `exgra-med-10`                            | ExGra-Med (10% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/exgra-med-10)     |
+| `exgra-med-40`                            | ExGra-Med (40% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/exgra-med-40)     |
+| `exgra-med`                            | Our base EXGRA-MED model (100% pre-trained PMC-15M)                   | [Link](https://huggingface.co/MERGE-Group/exgra-med)     |
+| `exgra-med-dci`                        | EXGRA-MED + DCI-enhanced version           | [Link](https://huggingface.co/MERGE-Group/exgra-med-dci)     |
+| `exgra-med-dci-vqa-rad`               | Fine-tuned on VQA-RAD                      | [Link](https://huggingface.co/MERGE-Group/exgra-med-dci-vqa-rad)     |
+| `exgra-med-dci-slake`                 | Fine-tuned on SLAKE                        | [Link](https://huggingface.co/MERGE-Group/exgra-med-dci-slake)     |
+| `exgra-med-dci-pathvqa`               | Fine-tuned on PATH-VQA                     | [Link](https://huggingface.co/MERGE-Group/exgra-med-dci-pathvqa)     |
+
+<!-- --- -->
+Before starting the finetuning/inference/evaluation, download our finetuned checkpoints.
+<details>
+  <summary>Download Checkpoints</summary>
+
+```bash
+cd pretrained/
+# pip install -U huggingface_hub
+# Download MERGE-Group/llava-med-10
+huggingface-cli download --resume-download --local-dir-use-symlinks False MERGE-Group/llava-med-10 --local-dir llava-med-10
+
+# Download MERGE-Group/llava-med-40
+huggingface-cli download --resume-download --local-dir-use-symlinks False MERGE-Group/llava-med-40 --local-dir llava-med-40
+
+# Download MERGE-Group/exgra-med-10
+huggingface-cli download --resume-download --local-dir-use-symlinks False MERGE-Group/exgra-med-10 --local-dir exgra-med-10
+
+# Download MERGE-Group/exgra-med-40
+huggingface-cli download --resume-download --local-dir-use-symlinks False MERGE-Group/exgra-med-40 --local-dir exgra-med-40
+
+```
+
+</details>
+
 
 ## II. Run inference with a pretrained checkpoint
 Below: load **ExGra-Med** fine-tuned on SV-CoT from Hugging Face and generate answer + grounded rationale.
