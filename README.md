@@ -22,6 +22,10 @@ We show that supervising VLMs with SV-CoT:
 - Improves grounding fidelity (reasoning actually points to the right region)
 - Improves robustness across models and languages
 
+<p align="center">
+<img src="https://github.com/leduckhai/S-Chain/blob/main/assets/main_pipeline.png" alt="Alt text" width="1400"/>
+</p>
+
 ## 🗂 Repo layout
 
 - `s_chain/` — dataset loaders, training loops, evaluation scripts.
