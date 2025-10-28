@@ -135,10 +135,25 @@ huggingface-cli download --resume-download --local-dir-use-symlinks False MERGE-
 Below: load **ExGra-Med** fine-tuned on SV-CoT from Hugging Face and generate answer and grounded rationale.
 
 ```
-python experiments/run_infer_demo.py \
-    --config s_chain/configs/exgra_med/sft_sv_cot.yaml \
-    --image_path path/to/chest_xray.png \
-    --question "Is there evidence of pneumothorax?"
+cd architectures/Exgra-Med-CoT
+
+# Then, choosing one of two ways below:
+bash bashscript/run_infer_demo.py 
+# or
+python llava/eval/run_med_datasets_eval_batch_CoT.py \
+    --num-chunks 2 \
+    --conv-mode ${prompt_mode} \
+    --use_rag ${use_rag} \
+    --model-name ${output_dir} \
+    --mm_dense_connector_type none \
+    --num_l 6 \
+    --question-file ${test_file_json} \
+    --image-folder ${image_folder} \
+    --answers-file ${answers_file}
+
+python llava/eval/run_eval_CoT.py \
+    --gt ${test_file_json} \
+    --pred ${answers_file} \
 ```
 `
 **Outputs** will include (a) predicted answer, (b) stepwise visual chain-of-thought, and (c)  bounding boxes per step (saved overlay in ```outputs/viz/```).
@@ -159,12 +174,12 @@ without our SV-CoT supervision.
 
 All training/eval configs for each model live in ```s_chain/configs/<model_name>/```.
 
-To **train** a model (e.g., **LLAVA-Med**) with any setting:
+To **train** a model (e.g., **LLAVA-Med**) with any setting, first you need to move into the corresponding folder in ``./architectures`` and follow the README, then run:
 
 ```
-python experiments/run_finetune.py \
-    --config s_chain/configs/llava_med/rag_plus_sv_cot.yaml \
-    --output_dir runs/llava_med/rag_plus_sv_cot/
+cd architectures/Exgra-Med-CoT
+
+bash bashscript/sv_cot_rag.sh
 ```
 
 To **evaluate**:

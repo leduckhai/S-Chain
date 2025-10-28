@@ -67,19 +67,9 @@ class ModelArguments:
     num_l: int = field(default=6)
     mm_projector_type: Optional[str] = field(default="linear")
     mm_use_im_start_end: bool = field(default=False)
-    contrastive: bool = field(default=False)
-    contrastive_loss_type: Optional[str] = field(default="infonce")
-    alpha: float = field(default=1.0)
-    temperature: float = field(default=100.0)
-    simi_type: Optional[str] = field(default="average")
-    lambd: float = field(
-        default=0.0051,
-        metadata={"help": "for Barlow Twins, weight on off-diagonal terms"},
-    )
-    qformer_path: Optional[str] = field(
-        default="/netscratch/trnguyen/instructBLIP_checkpoint/blip2_pretrained_vitL.pth"
-    )
+
     prompt_mode: Optional[str] = field(default="simple")
+    use_rag: bool = field(default=False)
 
 
 @dataclass
@@ -312,7 +302,8 @@ def preprocess_v1(
 
 
 def preprocess(
-    sources: Sequence[str], tokenizer: transformers.PreTrainedTokenizer, is_val, prompt_mode
+    sources: Sequence[str], tokenizer: transformers.PreTrainedTokenizer, 
+    is_val, prompt_mode, use_rag = None
 ) -> Dict:
     """
     Given a list of sources, each is a conversation list. This transform:
@@ -334,10 +325,16 @@ def preprocess(
             else:
                 header = f"{conversation_lib.default_conversation.system}\n\n"
         elif prompt_mode == "cot":
-            if is_val:
-                header = f"{conversation_lib.conv_v1_2_CoT.system}###Human: Hi!###Assistant: Hi there!  How can I help you today?\n"
+            if use_rag:
+                if is_val:
+                    header = f"{conversation_lib.conv_CoT_RAG.system}###Human: Hi!###Assistant: Hi there!  How can I help you today?\n"
+                else:
+                    header = f"{conversation_lib.conv_CoT_RAG.system}\n\n"
             else:
-                header = f"{conversation_lib.conv_v1_2_CoT.system}\n\n"
+                if is_val:
+                    header = f"{conversation_lib.conv_v1_2_CoT.system}###Human: Hi!###Assistant: Hi there!  How can I help you today?\n"
+                else:
+                    header = f"{conversation_lib.conv_v1_2_CoT.system}\n\n"
 
         conversation, text_input = _add_speaker_and_signal(header, source, is_val)
         conversations.append(
@@ -502,7 +499,8 @@ class LazySupervisedDataset(Dataset):
             except:
                 sources = copy.deepcopy([e["conversatons"] for e in sources])
 
-        data_dict = preprocess(sources, self.tokenizer, self.is_val, self.prompt_mode)
+        data_dict = preprocess(sources, self.tokenizer, self.is_val, self.prompt_mode, 
+                                use_rag=self.multimodal_cfg['use_rag'])
         if isinstance(i, int):
             data_dict = dict(
                 input_ids=data_dict["input_ids"][0],
@@ -583,6 +581,7 @@ def make_supervised_data_module(
             use_im_start_end=getattr(data_args, "mm_use_im_start_end", False),
             image_processor=getattr(data_args, "image_processor", None),
             use_qformer_query_as_image_token=use_qformer_query_as_image_token,
+            use_rag=data_args.use_rag
         ),
         prompt_mode=model_args.prompt_mode
     )
@@ -605,6 +604,7 @@ def make_supervised_data_module(
                 use_im_start_end=getattr(data_args, "mm_use_im_start_end", False),
                 image_processor=getattr(data_args, "image_processor", None),
                 use_qformer_query_as_image_token=use_qformer_query_as_image_token,
+                use_rag=data_args.use_rag
             ),
             is_val=True,
             prompt_mode=model_args.prompt_mode
@@ -631,6 +631,7 @@ def make_supervised_data_module(
                 use_im_start_end=getattr(data_args, "mm_use_im_start_end", False),
                 image_processor=getattr(data_args, "image_processor", None),
                 use_qformer_query_as_image_token=use_qformer_query_as_image_token,
+                use_rag=data_args.use_rag
             ),
             is_val=True,
             prompt_mode=model_args.prompt_mode
@@ -900,6 +901,7 @@ def train():
 
                 FSDP.__init__ = patch_FSDP_use_orig_params(FSDP.__init__)
 
+    data_args.use_rag = model_args.use_rag
     data_module = make_supervised_data_module(
         tokenizer=tokenizer, data_args=data_args, model_args=model_args
     )
