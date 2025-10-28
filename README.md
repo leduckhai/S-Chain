@@ -7,13 +7,13 @@
 [![Website](https://img.shields.io/badge/🌐%20Project%20Page-S--Chain-green)](https://s-chain.github.io/)
 
 <p align="center">
-  <a href="https://github.com/leduckhai" target="_blank"><strong>Khai Le-Duc*</strong></a><sup>1,2✉</sup>, 
-  <a href="https://scholar.google.com/citations?user=_NIyeykAAAAJ&hl=en" target="_blank"><strong>Duy M. H. Nguyen*</strong></a><sup>3,4,24✉</sup>, 
-  <a href="https://scholar.google.com/citations?user=5CbQH_kAAAAJ&hl=en" target="_blank"><strong>Phuong T. H. Trinh*</strong></a><sup>5</sup>, 
-  <strong>Tien-Phat Nguyen*</strong><sup>6</sup>,  
-  Nghiem T. Diep**<sup>3</sup>, 
-  An Ngo**<sup>7</sup>, 
-  Tung Vu**<sup>8</sup>, 
+  <a href="https://github.com/leduckhai" target="_blank"><strong>Khai Le-Duc</strong></a><sup>* 1,2✉</sup>, 
+  <a href="https://scholar.google.com/citations?user=_NIyeykAAAAJ&hl=en" target="_blank"><strong>Duy M. H. Nguyen</strong></a><sup>* 3,4,24✉</sup>, 
+  <a href="https://scholar.google.com/citations?user=5CbQH_kAAAAJ&hl=en" target="_blank"><strong>Phuong T. H. Trinh</strong></a><sup>* 5</sup>, 
+  <strong>Tien-Phat Nguyen</strong><sup>* 6</sup>,  
+  Nghiem T. Diep<sup>** 3</sup>, 
+  An Ngo<sup>** 7</sup>, 
+  Tung Vu<sup>** 8</sup>, 
   <a href="https://scholar.google.com/citations?user=trFdwLkAAAAJ&hl=en" target="_blank"><strong>Trinh Vuong</strong></a><sup>9</sup>, 
   Anh-Tien Nguyen<sup>10,11</sup>,  
   Mau Nguyen<sup>12</sup>, 
