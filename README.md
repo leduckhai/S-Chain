@@ -30,31 +30,19 @@ We show that supervising VLMs with SV-CoT:
 
 ## 📣 News
 
-- **[Oct 2025]** Updated experiment scripts and checkpoints for ExGra-Med and LLaVA-Med.
+- **[Oct 2025]** Updated experiment scripts and checkpoints for ExGra-Med and LLaVA-Med. See the [readme](architectures/Exgra-Med-CoT/README.md) for detailed instructions.
 - **[Oct 2025]** Dataset and project site released.
 
 ## 🗂 Repo layout
 
-- `s_chain/` — dataset loaders, training loops, evaluation scripts.
-- `architectures/` — adapters for each backbone (ExGra-Med, LLaVA-Med, Qwen-VL, InternVL, MedGemma, ...).
-- `experiments/` — scripts + configs for all tables/ablations in the paper.
+- `architectures/` — adapters for each backbone (ExGra-Med, LLaVA-Med, InternVL, MedGemma, ...). Each model has its own installation and usage instructions.
 - `medrag_integration/` — Retrieval-Augmented Generation (RAG) setup for medical evidence.
 - `data/` — dataset download scripts and directory conventions.
 
-See `INSTALL.md` to install dependencies and download the dataset.
 
 ## I. Quickstart
 
-### 1. Install
-```bash
-git clone https://github.com/leduckhai/S-Chain.git
-cd s-chain
-bash medrag_integration/install_medrag.sh
-pip install -r requirements.txt
-pip install -e .
-```
-
-### 2. Download the S-Chain dataset
+### 1. Download the S-Chain dataset
 
 ```
 cd data
@@ -97,7 +85,18 @@ Each ```*.jsonl``` record contains:
 }
 ```
 
-### 📦 Model Checkpoints
+### 2. Choose a Model Architecture
+
+Each architecture in `architectures/` has its own README with detailed installation, training, and evaluation instructions:
+
+- **[ExGra-Med & LLaVA-Med](architectures/Exgra-Med-CoT/README.md)** — Currently available
+- More architectures coming soon...
+
+### 3. Using Pre-trained Models
+- **ExGra-Med and LLava-Med**: ...TBU
+
+
+## II. 📦 Model Checkpoints
 
 | Model                                  | Description                                |🤗 Download Link |
 |----------------------------------------|--------------------------------------------|---------------|
@@ -138,17 +137,6 @@ huggingface-cli download --resume-download --local-dir-use-symlinks False MERGE-
 </details>
 
 
-## II. Run inference with a pretrained checkpoint
-Below: load **ExGra-Med** fine-tuned on SV-CoT from Hugging Face and generate answer and grounded rationale.
-
-```
-python experiments/run_infer_demo.py \
-    --config s_chain/configs/exgra_med/sft_sv_cot.yaml \
-    --image_path path/to/chest_xray.png \
-    --question "Is there evidence of pneumothorax?"
-```
-`
-**Outputs** will include (a) predicted answer, (b) stepwise visual chain-of-thought, and (c)  bounding boxes per step (saved overlay in ```outputs/viz/```).
 
 ## III. 🧪 Reproducing experiments
 We evaluate the following training regimes for each backbone:
@@ -164,23 +152,17 @@ without our SV-CoT supervision.
 
 - **SV-CoT + RAG (Joint)**: Fine-tune using both: visual step grounding from S-Chain and retrieved evidence from MIRIAD.
 
-All training/eval configs for each model live in ```s_chain/configs/<model_name>/```.
 
-To **train** a model (e.g., **LLAVA-Med**) with any setting:
+### Currently Available Models
 
+**ExGra-Med & LLaVA-Med**
+```bash
+cd architectures/Exgra-Med-CoT
+bash bashscript/llava1-5_stage2_noval_CoT.sh
 ```
-python experiments/run_finetune.py \
-    --config s_chain/configs/llava_med/rag_plus_sv_cot.yaml \
-    --output_dir runs/llava_med/rag_plus_sv_cot/
-```
+See [architectures/Exgra-Med-CoT/README.md](architectures/Exgra-Med-CoT/README.md) for detailed configuration options.
 
-To **evaluate**:
-
-```
-python experiments/run_eval.py \
-    --checkpoint runs/llava_med/rag_plus_sv_cot/ckpt_final.pt \
-    --split test
-```
+**More architectures coming soon...**
 
 
 ## Citation
