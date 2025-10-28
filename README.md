@@ -1,7 +1,7 @@
 # S-Chain: Structured Visual Chain-of-Thought for Medicine
 
-[![ArXiv](https://img.shields.io/badge/Paper-ArXiv-b31b1b.svg)](https://arxiv.org/pdf/2510.22728)
-[![Hugging Face](https://img.shields.io/badge/🤗%20Model-HuggingFace-blue)](https://huggingface.co/datasets/leduckhai/S-Chain)
+[![ArXiv](https://img.shields.io/badge/Paper-ArXiv-b31b1b.svg)](https://arxiv.org/abs/2510.22728)
+[![Hugging Face](https://img.shields.io/badge/🤗%20Model-HuggingFace-blue)](https://huggingface.co/leduckhai/S-Chain)
 [![Dataset](https://img.shields.io/badge/📂%20Dataset-S--Chain%20Data-blue)](https://huggingface.co/datasets/leduckhai/S-Chain)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC--BY--NC%204.0-lightgrey.svg)](https://github.com/duyhominhnguyen/S-Chain/blob/main/LICENSE)
 [![Website](https://img.shields.io/badge/🌐%20Project%20Page-S--Chain-green)](https://s-chain.github.io/)
@@ -166,16 +166,17 @@ See [architectures/Exgra-Med-CoT/README.md](architectures/Exgra-Med-CoT/README.m
 
 
 ## Citation
-If you find this work useful, please cite our paper:
+If you find this work useful, please cite our paper: [https://arxiv.org/abs/2510.22728](https://arxiv.org/abs/2510.22728)
 
 ```
 @article{leduc2025schain,
-  title={S-Chain: Structured Visual Chain-of-Thought for Medicine},
+  title={S-Chain: Structured Visual Chain-of-Thought For Medicine},
   author={Le-Duc, Khai and Trinh, Phuong T. H. and Nguyen, Duy M. H. and Nguyen, Tien-Phat and Diep, Nghiem T. and Ngo, An and Vu, Tung and Vuong, Trinh and Nguyen, Anh-Tien and Nguyen, Mau and Hoang, Van Trung and Nguyen, Khai-Nguyen and Nguyen, Hy and Ngo, Chris and Liu, Anji and Ho, Nhat and Hauschild, Anne-Christin and Nguyen, Khanh Xuan and Nguyen-Tang, Thanh and Xie, Pengtao and Sonntag, Daniel and Zou, James and Niepert, Mathias and Nguyen, Anh Totti},
   journal={arXiv preprint},
+  eprint={2510.22728},
+  url={https://arxiv.org/abs/2510.22728},
   year={2025}
 }
-
 ```
 
 ## ⚖️ Important Notice on Dataset Usage
