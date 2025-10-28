@@ -1,9 +1,9 @@
-# S-Chain: Structured Visual Chain-of-Thought for Medicine
+# <img src="https://github.com/leduckhai/S-Chain/blob/main/assets/SChain_icon.png" alt="Logo" width="60" valign="middle"> S-Chain: Structured Visual Chain-of-Thought for Medicine
 
 [![ArXiv](https://img.shields.io/badge/Paper-ArXiv-b31b1b.svg)](https://arxiv.org/abs/2510.22728)
 [![Hugging Face](https://img.shields.io/badge/🤗%20Model-HuggingFace-blue)](https://huggingface.co/leduckhai/S-Chain)
 [![Dataset](https://img.shields.io/badge/📂%20Dataset-S--Chain%20Data-blue)](https://huggingface.co/datasets/leduckhai/S-Chain)
-[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC--BY--NC%204.0-lightgrey.svg)](https://github.com/duyhominhnguyen/S-Chain/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/leduckhai/S-Chain/blob/main/DATASET_LICENSE.md)
 [![Website](https://img.shields.io/badge/🌐%20Project%20Page-S--Chain-green)](https://s-chain.github.io/)
 
 
