@@ -5,7 +5,7 @@
 </div>
 
 ### Usage
-To run the model settings on our dataset, check running files in folder bashscript. Then, download the Exgra-Med weight from [link](https://exgra-med.github.io/) and put into ``models`` folder before running. Because the Exgra-Med and LLaVA-Med use the same codebase for finetuning, you can change variables ``model_name_or_path`` (for original weight) and ``version`` (for version running) in running ``/sh`` scripts to finetune LLaVA-Med on this dataset. The checkpoint for LLaVA-Med can be also downloaded in this [link](https://exgra-med.github.io/).
+To run the model settings on our dataset, check running files in folder bashscript. Then, download the Exgra-Med weight from [link](https://exgra-med.github.io/) and put into ``models`` folder before running. Because the Exgra-Med and LLaVA-Med use the same codebase for finetuning, you can change variables ``model_name_or_path`` (for original weight) and ``version`` (for version running) in running ``.sh`` scripts to finetune LLaVA-Med on this dataset. The checkpoint for LLaVA-Med can be also downloaded in this [link](https://exgra-med.github.io/).
 
 In these files in ``bashscript`` folder, we can change settings.
 ```Shell
