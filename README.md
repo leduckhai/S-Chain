@@ -5,6 +5,13 @@
 [![Dataset](https://img.shields.io/badge/📂%20Dataset-S--Chain%20Data-blue)](https://huggingface.co/datasets/leduckhai/S-Chain)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/leduckhai/S-Chain/blob/main/DATASET_LICENSE.md)
 [![Website](https://img.shields.io/badge/🌐%20Project%20Page-S--Chain-green)](https://s-chain.github.io/)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/leduckhai/S-Chain)
+
+---
+
+⭐ **If you find this project helpful, please consider giving it a [star on GitHub](https://github.com/leduckhai/S-Chain)!**  
+
+---
 
 <p align="center">
   <a href="https://github.com/leduckhai" target="_blank"><strong>Khai Le-Duc</strong></a><sup>* 1,2✉</sup>, 
