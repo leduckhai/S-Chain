@@ -7,8 +7,8 @@
 [![Website](https://img.shields.io/badge/🌐%20Project%20Page-S--Chain-green)](https://s-chain.github.io/)
 
 <p align="center">
-  <strong>Khai Le-Duc*</strong><sup>1,2✉</sup>, 
-  <strong>Duy M. H. Nguyen*</strong><sup>3,4,24✉</sup>, 
+  <a href="https://github.com/leduckhai" target="_blank"><strong>Khai Le-Duc*</strong></a><sup>1,2✉</sup>, 
+  <a href="https://scholar.google.com/citations?user=_NIyeykAAAAJ&hl=en" target="_blank"><strong>Duy M. H. Nguyen*</strong></a><sup>3,4,24✉</sup>, 
   <strong>Phuong T. H. Trinh*</strong><sup>5</sup>, 
   <strong>Tien-Phat Nguyen*</strong><sup>6</sup>,  
   Nghiem T. Diep**<sup>3</sup>, 
@@ -24,13 +24,13 @@
   Anji Liu<sup>16</sup>, 
   Nhat Ho<sup>17</sup>, 
   Anne-Christin Hauschild<sup>11</sup>, 
-  Khanh Xuan Nguyen<sup>18</sup>,  
-  Thanh Nguyen-Tang<sup>19</sup>, 
+  <a href="https://scholar.google.com/citations?user=SmqouhIAAAAJ&hl=en" target="_blank"><strong>Khanh Xuan Nguyen</strong></a><sup>18</sup>,  
+  <a href="https://scholar.google.com/citations?user=UrTlMiwAAAAJ&hl=en" target="_blank"><strong>Thanh Nguyen-Tang</strong></a><sup>19</sup>, 
   Pengtao Xie<sup>20,21</sup>, 
   Daniel Sonntag<sup>3,22</sup>,  
-  James Zou<sup>23</sup>, 
+  <a href="https://scholar.google.com/citations?user=23ZXZvEAAAAJ&hl=en" target="_blank"><strong>James Zou</strong></a><sup>23</sup>, 
   Mathias Niepert<sup>4,24</sup>, 
-  Anh Totti Nguyen<sup>25✉</sup>
+  <a href="https://scholar.google.com/citations?user=EQw8d9AAAAAJ&hl=en" target="_blank"><strong>Anh Totti Nguyen</strong></a><sup>25✉</sup>
 </p>
 
 <p align="center">
