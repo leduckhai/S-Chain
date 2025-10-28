@@ -3,7 +3,7 @@
 [![ArXiv](https://img.shields.io/badge/Paper-ArXiv-b31b1b.svg)](https://arxiv.org/pdf/2510.22728)
 [![Hugging Face](https://img.shields.io/badge/🤗%20Model-HuggingFace-blue)](https://huggingface.co/datasets/leduckhai/S-Chain)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC--BY--NC%204.0-lightgrey.svg)](https://github.com/duyhominhnguyen/S-Chain/blob/main/LICENSE)
-[![Website](https://img.shields.io/badge/🌐%20Project%20Page-S--Chain-green)](https://phatnguyencs.github.io/s-chain/)
+[![Website](https://img.shields.io/badge/🌐%20Project%20Page-S--Chain-green)](https://s-chain.github.io/)
 
 
 ## 🔍 What is S-Chain?
