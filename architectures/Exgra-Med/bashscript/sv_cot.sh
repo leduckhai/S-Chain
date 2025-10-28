@@ -1,3 +1,4 @@
+# This script is used to train model with input image, question, our Structured Visual CoT, and final prediction (Q4).
 export WANDB_API_KEY= #<your_wandb_key>
 
 lr=2e-5

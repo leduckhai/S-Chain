@@ -1,3 +1,4 @@
+# This script is used to train model using both: visual step grounding from S-Chain and retrieved evidence from MIRIAD
 export WANDB_API_KEY= #<your_wandb_key>
 
 lr=2e-5

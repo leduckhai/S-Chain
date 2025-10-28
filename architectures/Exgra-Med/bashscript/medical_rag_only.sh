@@ -1,3 +1,4 @@
+# This script is used to train model with input image, question, and medical Retrieval-Augmented Generation context
 export WANDB_API_KEY= #<your_wandb_key>
 
 lr=2e-5
