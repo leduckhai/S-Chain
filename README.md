@@ -73,9 +73,10 @@
 ---
 
 <p align="center">
-  ✨ In honor of Hải Thượng Lãn Ông (海上懶翁) - Lê Hữu Trác (黎友晫), the father of Vietnamese traditional medicine</strong> ✨
+  ✨ In honor of 
+  <a href="https://en.wikipedia.org/wiki/H%E1%BA%A3i_Th%C6%B0%E1%BB%A3ng_L%C3%A3n_%C3%94ng" target="_blank"><strong>Hải Thượng Lãn Ông (海上懶翁) – Lê Hữu Trác (黎友晫)</strong></a>, 
+  the father of Vietnamese traditional medicine ✨
 </p>
-
 
 ## 🔍 What is S-Chain?
 
