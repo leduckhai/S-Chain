@@ -174,7 +174,7 @@ without our SV-CoT supervision.
 
 All training/eval configs for each model live in ```s_chain/configs/<model_name>/```.
 
-To **train** a model (e.g., **LLAVA-Med**) with any setting, first you need to move into the corresponding folder in ``./architectures`` and follow the README, then run:
+To **train** a model (e.g., **Exgra-Med**) with any setting, first you need to move into the corresponding folder in ``./architectures`` and follow the README carefully, then run:
 
 ```
 cd architectures/Exgra-Med-CoT
@@ -185,9 +185,22 @@ bash bashscript/sv_cot_rag.sh
 To **evaluate**:
 
 ```
-python experiments/run_eval.py \
-    --checkpoint runs/llava_med/rag_plus_sv_cot/ckpt_final.pt \
-    --split test
+cd architectures/Exgra-Med-CoT
+
+python llava/eval/run_med_datasets_eval_batch_CoT.py \
+    --num-chunks 2 \
+    --conv-mode ${prompt_mode} \
+    --use_rag ${use_rag} \
+    --model-name ${output_dir} \
+    --mm_dense_connector_type none \
+    --num_l 6 \
+    --question-file ${test_file_json} \
+    --image-folder ${image_folder} \
+    --answers-file ${answers_file}
+
+python llava/eval/run_eval_CoT.py \
+    --gt ${test_file_json} \
+    --pred ${answers_file} \
 ```
 
 

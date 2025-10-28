@@ -227,7 +227,7 @@ def preprocess_multimodal(
                 DEFAULT_IMAGE_TOKEN, replace_token
             )
 
-    return sources  # list of dict, each dict is {'from': 'human'/'gpt', 'value': '...'}. One-turn conversation has 2 elements in list, multi-turn has 2n element
+    return sources 
 
 
 def preprocess_v1(
@@ -318,19 +318,20 @@ def preprocess(
     conversations = []
     for (
         source
-    ) in sources:  # sources has only 1 element (true for both 1-turn and multi-turn )
-        if prompt_mode == "simple":
+    ) in sources:
+        ########## This code below choose the suitable system prompt based on the use of CoT and RAG ##########
+        if prompt_mode == "simple": # Do not use CoT
             if is_val:
                 header = f"{conversation_lib.default_conversation.system}###Human: Hi!###Assistant: Hi there!  How can I help you today?\n"
             else:
                 header = f"{conversation_lib.default_conversation.system}\n\n"
-        elif prompt_mode == "cot":
-            if use_rag:
+        elif prompt_mode == "cot": # Use CoT
+            if use_rag: # Use RAG
                 if is_val:
                     header = f"{conversation_lib.conv_CoT_RAG.system}###Human: Hi!###Assistant: Hi there!  How can I help you today?\n"
                 else:
                     header = f"{conversation_lib.conv_CoT_RAG.system}\n\n"
-            else:
+            else: # Do not use RAG
                 if is_val:
                     header = f"{conversation_lib.conv_v1_2_CoT.system}###Human: Hi!###Assistant: Hi there!  How can I help you today?\n"
                 else:
@@ -342,8 +343,7 @@ def preprocess(
         )  # Example: ['A chat between a curious ...polite answers to the human\'s questions.\n\n### Human: Is/Are there vertebral/basilar artery? (Answer with either "Yes" or "No").\n<im_start><im_patch>...<im_patch><im_end>\n### Assistant: Yes\n### ']
         # if this is multi-turn, all turns are also garther into one conversation. So the structure of conversation (output of _add_speaker_and_signal) is the same for both 1-turn and multi-turn
     # remove image tokens from questions
-    print(conversations[0])
-    print("######################################")
+
     if "<im_start>" in text_input:
         start_idx = text_input.index("<im_start>")
         end_idx = text_input.index("<im_end>")
