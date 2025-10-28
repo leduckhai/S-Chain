@@ -6,6 +6,75 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/leduckhai/S-Chain/blob/main/DATASET_LICENSE.md)
 [![Website](https://img.shields.io/badge/🌐%20Project%20Page-S--Chain-green)](https://s-chain.github.io/)
 
+<p align="center">
+  <strong>Khai Le-Duc*</strong><sup>1,2✉</sup>, 
+  <strong>Duy M. H. Nguyen*</strong><sup>3,4,24✉</sup>, 
+  <strong>Phuong T. H. Trinh*</strong><sup>5</sup>, 
+  <strong>Tien-Phat Nguyen*</strong><sup>6</sup>,  
+  Nghiem T. Diep**<sup>3</sup>, 
+  An Ngo**<sup>7</sup>, 
+  Tung Vu**<sup>8</sup>, 
+  Trinh Vuong<sup>9</sup>, 
+  Anh-Tien Nguyen<sup>10,11</sup>,  
+  Mau Nguyen<sup>12</sup>, 
+  Van Trung Hoang<sup>13</sup>, 
+  Khai-Nguyen Nguyen<sup>14</sup>, 
+  Hy Nguyen<sup>15</sup>, 
+  Chris Ngo<sup>2</sup>,  
+  Anji Liu<sup>16</sup>, 
+  Nhat Ho<sup>17</sup>, 
+  Anne-Christin Hauschild<sup>11</sup>, 
+  Khanh Xuan Nguyen<sup>18</sup>,  
+  Thanh Nguyen-Tang<sup>19</sup>, 
+  Pengtao Xie<sup>20,21</sup>, 
+  Daniel Sonntag<sup>3,22</sup>,  
+  James Zou<sup>23</sup>, 
+  Mathias Niepert<sup>4,24</sup>, 
+  Anh Totti Nguyen<sup>25✉</sup>
+</p>
+
+<p align="center">
+  <em>*Co-first authors; order randomized &nbsp;&nbsp;|&nbsp;&nbsp; **Co-second authors</em><br>
+  <em>✉ Corresponding Authors</em>
+</p>
+
+<details>
+<summary><strong>🎓 Affiliations</strong> (click to expand)</summary>
+
+1. University of Toronto, Canada  
+2. Knovel Engineering Lab, Singapore  
+3. German Research Centre for Artificial Intelligence  
+4. University of Stuttgart, Germany  
+5. Chonnam National University, South Korea  
+6. Singapore University of Technology and Design  
+7. Bucknell University, USA  
+8. Concordia University, Canada  
+9. Korea University  
+10. Justus Liebig University Giessen, Germany  
+11. University Medical Center Göttingen, Germany  
+12. Japan Advanced Institute of Science and Technology  
+13. Hue University, Vietnam  
+14. College of William & Mary, USA  
+15. Deakin University, Australia  
+16. National University of Singapore  
+17. University of Texas at Austin, USA  
+18. University of California, Berkeley, USA  
+19. New Jersey Institute of Technology, USA  
+20. University of California San Diego, USA  
+21. MBZUAI, UAE  
+22. Oldenburg University, Germany  
+23. Stanford University, USA  
+24. Max Planck Research School for Intelligent Systems (IMPRS-IS), Germany  
+25. Auburn University, USA  
+
+</details>
+
+---
+
+<p align="center">
+  ✨ In honor of Hải Thượng Lãn Ông Lê Hữu Trác - the father of Vietnamese traditional medicine</strong> ✨
+</p>
+
 
 ## 🔍 What is S-Chain?
 
