@@ -120,7 +120,21 @@ We show that supervising VLMs with SV-CoT:
 
 ## I. Quickstart
 
-### 1. Download the S-Chain dataset
+### 1. 📥 Download the S-Chain dataset
+
+**Example Usage (Python) from Hugging Face**
+
+👉 [https://huggingface.co/datasets/leduckhai/S-Chain](https://huggingface.co/datasets/leduckhai/S-Chain)
+
+```python
+from datasets import load_dataset
+
+dataset = load_dataset("leduckhai/S-Chain")
+
+print(dataset)
+```
+
+**Or using Bash**
 
 ```
 cd data
