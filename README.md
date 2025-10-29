@@ -242,7 +242,7 @@ python llava/eval/run_eval_CoT.py \
 `
 **Outputs** will include (a) predicted answer, (b) stepwise visual chain-of-thought, and (c)  bounding boxes per step (saved overlay in ```outputs/viz/```).
 
-## III. 🧪 Reproducing experiments
+## II. 🧪 Reproducing experiments
 We evaluate the following training regimes for each backbone:
 
 - **Baseline CoT**: Supervise on model with input image, question and final prediction (Q4).
