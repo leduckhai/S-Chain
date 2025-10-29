@@ -15,6 +15,7 @@ def parse_args():
     parser.add_argument("--mm-projector", type=str, default=None)
     parser.add_argument("--vision-tower", type=str, default=None)
     parser.add_argument("--conv-mode", type=str, default="simple")
+    parser.add_argument("--use_rag", type=bool, default=None)
     parser.add_argument("--answer-prompter", action="store_true")
     parser.add_argument('--num-chunks', type=int, default=1, help='Number of chunks (default: 1).')
     parser.add_argument("--step_given", type=int, default=None)
@@ -35,6 +36,7 @@ def run_job(chunk_idx, args):
            "--num-chunks {chunks} "
            "--step_given {step_given} "
            "--conv-mode {conv_mode} "
+           "--use_rag {use_rag} "
            "--chunk-idx {chunk_idx} ").format(
                 chunk_idx=chunk_idx,
                 chunks=args.num_chunks,
@@ -45,6 +47,7 @@ def run_job(chunk_idx, args):
                 image_folder=args.image_folder,
                 experiment_name_with_split=args.experiment_name_with_split,
                 conv_mode=args.conv_mode,
+                use_rag=args.use_rag,
                 step_given=args.step_given
             )
 

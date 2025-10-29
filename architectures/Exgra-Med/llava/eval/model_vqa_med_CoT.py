@@ -229,7 +229,10 @@ def eval_model(args):
             qs += '\n\n### Response:'
         assert gt_ans['from'] == 'gpt'
         # conv = default_conversation.copy()
-        conv = conv_templates[args.conv_mode].copy()
+        if args.use_rag and args.conv_mode == "cot":
+            conv = conv_templates["cot_rag"].copy()
+        else:
+            conv = conv_templates[args.conv_mode].copy()
         conv.append_message(conv.roles[0], qs) # qs: 'Is there evidence of an aortic aneurysm? (Answer with either \"Yes\" or \"No\").\n<im_start><im_patch>...<im_end>'
         prompt = conv.get_prompt()
         if args.step_given >= 1:
@@ -352,6 +355,7 @@ if __name__ == "__main__":
     parser.add_argument("--contrastive", action="store_true")
     parser.add_argument("--vision-tower", type=str, default=None)
     parser.add_argument("--conv-mode", type=str, default="simple")
+    parser.add_argument("--use_rag", type=bool, default=None)
     parser.add_argument("--num-chunks", type=int, default=1)
     parser.add_argument("--step_given", type=int, default=None)
     parser.add_argument("--chunk-idx", type=int, default=0)
