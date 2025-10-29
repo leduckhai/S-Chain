@@ -94,12 +94,12 @@ Each ```*.jsonl``` record contains:
 
 | Model                                  | Description                                |🤗 Download Link |
 |----------------------------------------|--------------------------------------------|---------------|
-| `llava-med-base`                            | LLaVa-Med trained with base settings (Q4 only)                 | [Link](https://huggingface.co/MERGE-Group/llava-med-10)     |
+| `llava-med-base`                            | LLaVa-Med trained with base settings (Q4 only)                 | [Link](https://huggingface.co/leduckhai/S-Chain/tree/main/llava-med-base)     |
 | `llava-med-gpt-cot`                            | LLaVa-Med trained with GPT-synthetic visual COT                   | [Link](https://huggingface.co/leduckhai/S-Chain/tree/main/llava-med-gpt-cot)     |
 | `llava-med-gpt-schain`                            | LLaVa-Med trained with our S-Chain dataset                  | [Link](https://huggingface.co/leduckhai/S-Chain/tree/main/llava-med-gpt-schain)     |
 | `llava-med-gpt-medrag-only`                            | LLaVa-Med with medical retrieval augmented generation and Q4 only                  | [Link](https://huggingface.co/leduckhai/S-Chain/tree/main/llava-med-gpt-medrag-only)     |
 | `llava-med-gpt-medrag-schain`                            | LLaVa-Med with medical retrieval augmented generation and S-Chian                  | [Link](https://huggingface.co/leduckhai/S-Chain/tree/main/llava-med-gpt-medrag-schain)     |
-| `exgra-med-base`                            | ExGra-Med trained with base settings (Q4 only)                    | [Link](https://huggingface.co/MERGE-Group/llava-med-10)     |
+| `exgra-med-base`                            | ExGra-Med trained with base settings (Q4 only)                    | [Link](https://huggingface.co/leduckhai/S-Chain/tree/main/exgra-med-base)     |
 | `exgra-med-gpt-cot`                            | ExGra-Med trained with GPT-synthetic visual COT                    | [Link](https://huggingface.co/leduckhai/S-Chain/tree/main/exgra-med-gpt-cot)     |
 | `exgra-med-gpt-schain`                            |ExGra-Med trained with our S-Chain dataset                     | [Link](https://huggingface.co/leduckhai/S-Chain/tree/main/exgra-med-gpt-schain)     |
 | `exgra-med-gpt-medrag-only`                            | ExGra-Med with medical retrieval augmented generation and Q4 only                 | [Link](https://huggingface.co/leduckhai/S-Chain/tree/main/exgra-med-gpt-medrag-only)     |
