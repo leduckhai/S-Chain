@@ -128,9 +128,7 @@ We show that supervising VLMs with SV-CoT:
 
 ```python
 from datasets import load_dataset
-
 dataset = load_dataset("leduckhai/S-Chain")
-
 print(dataset)
 ```
 
@@ -140,7 +138,6 @@ print(dataset)
 cd data
 bash download_english.sh        # English-only SV-CoT split
 bash download_multilingual.sh   # All 16 languages
-
 ```
 
 This will populate:
