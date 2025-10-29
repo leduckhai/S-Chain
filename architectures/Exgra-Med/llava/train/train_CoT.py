@@ -67,19 +67,9 @@ class ModelArguments:
     num_l: int = field(default=6)
     mm_projector_type: Optional[str] = field(default="linear")
     mm_use_im_start_end: bool = field(default=False)
-    contrastive: bool = field(default=False)
-    contrastive_loss_type: Optional[str] = field(default="infonce")
-    alpha: float = field(default=1.0)
-    temperature: float = field(default=100.0)
-    simi_type: Optional[str] = field(default="average")
-    lambd: float = field(
-        default=0.0051,
-        metadata={"help": "for Barlow Twins, weight on off-diagonal terms"},
-    )
-    qformer_path: Optional[str] = field(
-        default="/netscratch/trnguyen/instructBLIP_checkpoint/blip2_pretrained_vitL.pth"
-    )
+
     prompt_mode: Optional[str] = field(default="simple")
+    use_rag: bool = field(default=False)
 
 
 @dataclass
@@ -237,7 +227,7 @@ def preprocess_multimodal(
                 DEFAULT_IMAGE_TOKEN, replace_token
             )
 
-    return sources  # list of dict, each dict is {'from': 'human'/'gpt', 'value': '...'}. One-turn conversation has 2 elements in list, multi-turn has 2n element
+    return sources 
 
 
 def preprocess_v1(
@@ -312,7 +302,8 @@ def preprocess_v1(
 
 
 def preprocess(
-    sources: Sequence[str], tokenizer: transformers.PreTrainedTokenizer, is_val, prompt_mode
+    sources: Sequence[str], tokenizer: transformers.PreTrainedTokenizer, 
+    is_val, prompt_mode, use_rag = None
 ) -> Dict:
     """
     Given a list of sources, each is a conversation list. This transform:
@@ -327,17 +318,24 @@ def preprocess(
     conversations = []
     for (
         source
-    ) in sources:  # sources has only 1 element (true for both 1-turn and multi-turn )
-        if prompt_mode == "simple":
+    ) in sources:
+        ########## This code below choose the suitable system prompt based on the use of CoT and RAG ##########
+        if prompt_mode == "simple": # Do not use CoT
             if is_val:
                 header = f"{conversation_lib.default_conversation.system}###Human: Hi!###Assistant: Hi there!  How can I help you today?\n"
             else:
                 header = f"{conversation_lib.default_conversation.system}\n\n"
-        elif prompt_mode == "cot":
-            if is_val:
-                header = f"{conversation_lib.conv_v1_2_CoT.system}###Human: Hi!###Assistant: Hi there!  How can I help you today?\n"
-            else:
-                header = f"{conversation_lib.conv_v1_2_CoT.system}\n\n"
+        elif prompt_mode == "cot": # Use CoT
+            if use_rag: # Use RAG
+                if is_val:
+                    header = f"{conversation_lib.conv_CoT_RAG.system}###Human: Hi!###Assistant: Hi there!  How can I help you today?\n"
+                else:
+                    header = f"{conversation_lib.conv_CoT_RAG.system}\n\n"
+            else: # Do not use RAG
+                if is_val:
+                    header = f"{conversation_lib.conv_v1_2_CoT.system}###Human: Hi!###Assistant: Hi there!  How can I help you today?\n"
+                else:
+                    header = f"{conversation_lib.conv_v1_2_CoT.system}\n\n"
 
         conversation, text_input = _add_speaker_and_signal(header, source, is_val)
         conversations.append(
@@ -345,8 +343,7 @@ def preprocess(
         )  # Example: ['A chat between a curious ...polite answers to the human\'s questions.\n\n### Human: Is/Are there vertebral/basilar artery? (Answer with either "Yes" or "No").\n<im_start><im_patch>...<im_patch><im_end>\n### Assistant: Yes\n### ']
         # if this is multi-turn, all turns are also garther into one conversation. So the structure of conversation (output of _add_speaker_and_signal) is the same for both 1-turn and multi-turn
     # remove image tokens from questions
-    print(conversations[0])
-    print("######################################")
+
     if "<im_start>" in text_input:
         start_idx = text_input.index("<im_start>")
         end_idx = text_input.index("<im_end>")
@@ -502,7 +499,8 @@ class LazySupervisedDataset(Dataset):
             except:
                 sources = copy.deepcopy([e["conversatons"] for e in sources])
 
-        data_dict = preprocess(sources, self.tokenizer, self.is_val, self.prompt_mode)
+        data_dict = preprocess(sources, self.tokenizer, self.is_val, self.prompt_mode, 
+                                use_rag=self.multimodal_cfg['use_rag'])
         if isinstance(i, int):
             data_dict = dict(
                 input_ids=data_dict["input_ids"][0],
@@ -583,6 +581,7 @@ def make_supervised_data_module(
             use_im_start_end=getattr(data_args, "mm_use_im_start_end", False),
             image_processor=getattr(data_args, "image_processor", None),
             use_qformer_query_as_image_token=use_qformer_query_as_image_token,
+            use_rag=data_args.use_rag
         ),
         prompt_mode=model_args.prompt_mode
     )
@@ -605,6 +604,7 @@ def make_supervised_data_module(
                 use_im_start_end=getattr(data_args, "mm_use_im_start_end", False),
                 image_processor=getattr(data_args, "image_processor", None),
                 use_qformer_query_as_image_token=use_qformer_query_as_image_token,
+                use_rag=data_args.use_rag
             ),
             is_val=True,
             prompt_mode=model_args.prompt_mode
@@ -631,6 +631,7 @@ def make_supervised_data_module(
                 use_im_start_end=getattr(data_args, "mm_use_im_start_end", False),
                 image_processor=getattr(data_args, "image_processor", None),
                 use_qformer_query_as_image_token=use_qformer_query_as_image_token,
+                use_rag=data_args.use_rag
             ),
             is_val=True,
             prompt_mode=model_args.prompt_mode
@@ -900,6 +901,7 @@ def train():
 
                 FSDP.__init__ = patch_FSDP_use_orig_params(FSDP.__init__)
 
+    data_args.use_rag = model_args.use_rag
     data_module = make_supervised_data_module(
         tokenizer=tokenizer, data_args=data_args, model_args=model_args
     )

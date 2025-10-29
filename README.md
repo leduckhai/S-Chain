@@ -174,18 +174,8 @@ Each ```*.jsonl``` record contains:
 }
 ```
 
-### 2. Choose a Model Architecture
 
-Each architecture in `architectures/` has its own README with detailed installation, training, and evaluation instructions:
-
-- **[ExGra-Med & LLaVA-Med](architectures/Exgra-Med-CoT/README.md)** — Currently available
-- More architectures coming soon...
-
-### 3. Using Pre-trained Models
-- **ExGra-Med and LLava-Med**: ...TBU
-
-
-## II. 📦 Model Checkpoints
+### 2. 📦 Choose Model Checkpoints
 
 | Model                                  | Description                                |🤗 Download Link |
 |----------------------------------------|--------------------------------------------|---------------|
@@ -226,6 +216,32 @@ huggingface-cli download --resume-download --local-dir-use-symlinks False MERGE-
 </details>
 
 
+### 3. Run inference with a pretrained checkpoint
+Below: load **ExGra-Med** fine-tuned on SV-CoT from Hugging Face and generate answer and grounded rationale.
+
+```
+cd architectures/Exgra-Med-CoT
+
+# Then, choosing one of two ways below:
+bash bashscript/run_infer_demo.py 
+# or
+python llava/eval/run_med_datasets_eval_batch_CoT.py \
+    --num-chunks 2 \
+    --conv-mode ${prompt_mode} \
+    --use_rag ${use_rag} \
+    --model-name ${output_dir} \
+    --mm_dense_connector_type none \
+    --num_l 6 \
+    --question-file ${test_file_json} \
+    --image-folder ${image_folder} \
+    --answers-file ${answers_file}
+
+python llava/eval/run_eval_CoT.py \
+    --gt ${test_file_json} \
+    --pred ${answers_file} \
+```
+`
+**Outputs** will include (a) predicted answer, (b) stepwise visual chain-of-thought, and (c)  bounding boxes per step (saved overlay in ```outputs/viz/```).
 
 ## III. 🧪 Reproducing experiments
 We evaluate the following training regimes for each backbone:
@@ -243,16 +259,39 @@ without our SV-CoT supervision.
 
 
 ### Currently Available Models
+To **train** a provided model with any settings, first you need to move into the corresponding folder in ``./architectures`` and follow the README carefully.
 
-**ExGra-Med & LLaVA-Med**
+**1. ExGra-Med & LLaVA-Med**
+
+To **train**:
 ```bash
 cd architectures/Exgra-Med-CoT
 bash bashscript/llava1-5_stage2_noval_CoT.sh
 ```
-See [architectures/Exgra-Med-CoT/README.md](architectures/Exgra-Med-CoT/README.md) for detailed configuration options.
 
-**More architectures coming soon...**
+To **evaluate**:
 
+```bash
+cd architectures/Exgra-Med-CoT
+
+python llava/eval/run_med_datasets_eval_batch_CoT.py \
+    --num-chunks 2 \
+    --conv-mode ${prompt_mode} \
+    --use_rag ${use_rag} \
+    --model-name ${output_dir} \
+    --mm_dense_connector_type none \
+    --num_l 6 \
+    --question-file ${test_file_json} \
+    --image-folder ${image_folder} \
+    --answers-file ${answers_file}
+
+python llava/eval/run_eval_CoT.py \
+    --gt ${test_file_json} \
+    --pred ${answers_file} \
+```
+Please find more details in [Exgra-Med & LLaVA-Med](architectures/Exgra-Med/README.md).
+
+*More models coming soon...*
 
 ## Citation
 If you find this work useful, please cite our paper: [https://arxiv.org/abs/2510.22728](https://arxiv.org/abs/2510.22728)

@@ -26,7 +26,6 @@ from transformers import AutoConfig, AutoModelForCausalLM, \
 
 from transformers.modeling_outputs import BaseModelOutputWithPast, CausalLMOutputWithPast
 from llava.model.utils import *
-from llava.model.qformer import init_tokenizer, init_Qformer
 from llava.model.dense_connector import dense_connector
 import open_clip
 import os, json
@@ -64,36 +63,12 @@ def build_vision_projector(config, delay_load=False, **kwargs):
             modules.append(nn.GELU())
             modules.append(nn.Linear(config.hidden_size, config.hidden_size))
         return nn.Sequential(*modules)
-    if projector_type == 'qformer': 
-        print("--------------------------Using projection from Qformer---------------------")
-        return nn.Linear(config.qformer_hidden_size, config.hidden_size)
+    
     if projector_type == 'identity':
         return IdentityMap()
 
     raise ValueError(f'Unknown projector type: {projector_type}')
 
-def initialize_qformer(config): 
-        qformer_tokenizer = init_tokenizer(truncation_side="left")
-        ln_vision = nn.LayerNorm(config.mm_hidden_size) # num_features of ViT-L/14 from CLIP
-        Qformer, query_tokens = init_Qformer(32, config.mm_hidden_size)
-        Qformer.resize_token_embeddings(len(qformer_tokenizer))
-        Qformer.cls = None
-
-        state_dict = torch.load(config.qformer_path, map_location="cpu")['model']
-        Qformer_state_dict = OrderedDict()
-        ln_vision_state_dict = OrderedDict()
-
-        for key in state_dict.keys(): 
-            if 'Qformer' in key: 
-                Qformer_state_dict[key.replace('Qformer.', '')] = state_dict[key]
-            if 'ln_vision' in key: 
-                ln_vision_state_dict[key.replace('ln_vision.', '')] = state_dict[key]
-
-        query_tokens.data.copy_(state_dict['query_tokens'])
-
-        config.qformer_hidden_size = Qformer.config.hidden_size
-
-        return (qformer_tokenizer, ln_vision, query_tokens, Qformer)
 
 class LlavaConfig(LlamaConfig):
     model_type = "llava"
@@ -120,27 +95,15 @@ class LlavaLlamaModel(LlamaModel):
         if hasattr(config, "mm_projector_type"):
             print("--------Build mm_projector during model initialization--------")
             # self.mm_projector = nn.Linear(config.mm_hidden_size, config.hidden_size)
-            if config.mm_projector_type == 'qformer': # have to make sure that config.qformer_path exists if mm_projector_type = 'qformer'
-                self.qformer_tokenizer, self.ln_vision, self.query_tokens, self.Qformer = initialize_qformer(config)
+            
             self.mm_projector = build_vision_projector(config)
 
     def initialize_vision_modules(self, model_args, vision_tower, mm_vision_select_layer,
                                   pretrain_mm_mlp_adapter=None, tune_mm_mlp_adapter=False):
 
         #############
-        self.contrastive = getattr(model_args, 'contrastive', False)
         self.mm_dense_connector_type = model_args.mm_dense_connector_type
         self.num_l = model_args.num_l
-        if self.contrastive:
-            self.alpha = getattr(model_args, 'alpha', 1.0)
-            self.contrastive_loss_type = getattr(model_args, 'contrastive_loss_type', "infonce")
-            # self.temperature = getattr(model_args, 'temperature', 100.0)
-            self.temperature = nn.Parameter(data=torch.tensor(4.606), requires_grad=True)
-            if self.contrastive_loss_type == "siginfo":
-                self.beta = nn.Parameter(data=torch.tensor(10), requires_grad=True)
-            elif self.contrastive_loss_type == "twins": 
-                self.lambd = getattr(model_args, 'lambd', 0.0051)
-                self.bn = nn.BatchNorm1d(self.config.hidden_size, affine=False)
         #############
         if "BiomedCLIP" in vision_tower:
             self.vision_tower_name = "microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224"
@@ -171,7 +134,7 @@ class LlavaLlamaModel(LlamaModel):
 
         self.config.use_mm_proj = True
         self.config.mm_projector_type = getattr(model_args, 'mm_projector_type', 'linear')
-        self.config.qformer_path = getattr(model_args, 'qformer_path', '/netscratch/trnguyen/instructBLIP_checkpoint/blip2_pretrained_vitL.pth')
+
         if self.mm_dense_connector_type in ['dci', 'sci']:
             self.config.mm_hidden_size = vision_config.hidden_size*3
         else:
@@ -180,8 +143,6 @@ class LlavaLlamaModel(LlamaModel):
 
         if not hasattr(self, 'mm_projector'):
             # self.mm_projector = nn.Linear(vision_config.hidden_size, self.config.hidden_size)
-            if self.config.mm_projector_type == 'qformer':
-                 self.qformer_tokenizer, self.ln_vision, self.query_tokens, self.Qformer = initialize_qformer(self.config)
             self.mm_projector = build_vision_projector(self.config)
 
         if pretrain_mm_mlp_adapter is not None:
@@ -266,15 +227,15 @@ class LlavaLlamaModel(LlamaModel):
         else:
             image_forward_outs = vision_tower(images, output_hidden_states=True)
             select_hidden_state = image_forward_outs.hidden_states[select_hidden_state_layer]
-            if self.config.mm_projector_type == 'qformer': 
-                image_features = select_hidden_state # [B, 257, 1024] with [CLS] at first position
-            else: 
-                image_features = select_hidden_state[:, 1:] # [B, 256, 1024], 256 here is number of patch
+             
+            image_features = select_hidden_state[:, 1:] # [B, 256, 1024], 256 here is number of patch
+
             if self.mm_dense_connector_type in ['sti', 'sci', 'dci']:
                 # print("===========use DCI=============")
                 image_features = dense_connector(image_features=image_features, image_forward_outs=image_forward_outs,
                                                  mm_dense_connector_type=self.mm_dense_connector_type, is_biomed=False, num_l=self.num_l)
         return image_features
+        
     def off_diagonal(self,x):
         # return a flattened view of the off-diagonal elements of a square matrix
         n, m = x.shape
@@ -310,7 +271,7 @@ class LlavaLlamaModel(LlamaModel):
             inputs_embeds = self.embed_tokens(input_ids) # [B, T, hidden_size] e.g [4,329,4096], E in CG-VLM
 
         vision_tower = getattr(self, 'vision_tower', None)
-        lossAlign = 0
+
         if vision_tower is not None and (input_ids.shape[1] != 1 or self.training) and images is not None:
             # TODO: this is a modified multimodal LLM -- Haotian Liu
             vision_tower = vision_tower[0]  # HACK: for FSDP
@@ -323,56 +284,13 @@ class LlavaLlamaModel(LlamaModel):
                         image_features.append(image_feature)
                 else:
                     image_features = self.extract_visual_features(vision_tower, images) # vision_tower is frozen, image_features: [B, num_patch, vision_config.hidden_size] = [4,256, 1024], V in CG-VLM
-            ############################### Add Qformer here ##########################################
-            # We need to do the following steps
-            #1. Create a new data format for input_ids 
-            #   1.1. (number of <im_patch> is now 32 instead of 256)
-            #   1.2. text_input (system message + human's question) needs to be in text format (to feed in Qformer's tokenizer)
-            #   1.3. need to make sure that loss is not applied to to the query tokens ( aka <im_patch>) (pretty sure loss is not applied according to paper LLaVA)
-            #2. Tokenize the text_input using Qformer's tokenizer
-            #3. Pass the tokenized text_input, query_tokens and image_features (which is self.ln_vision(self.extract_visual_features(...))) to Qformer.bert() to get query_output
-            #4. Pass query_output through self.mm_projector to get inputs_llm (= image_features = self.mm_projector(image_features))
-            #5. Concatenate (interleave) embedded, tokenized conversations (question +  answer) with inputs_llm (this is exactly the same as original LLaVA's code so we don't do anything). The final result is inputs_embeds
-            #6. Pass inputs_embeds to super(LlavaLlamaModel, self).forward()
-            # => so we need to get query_output here (before calling self.mm_projector)
-            #Need to make sure that Qformer and other relevant components are trainable (requires_grad = True)
             
-            if self.config.mm_projector_type == 'qformer':
-                image_embeds = self.ln_vision(image_features) # encode the image [B, 257, 1024]
-                image_atts = torch.ones(image_embeds.size()[:-1], dtype=torch.long).to(images.device) # [B, 257]
-                query_tokens = self.query_tokens.expand(image_embeds.shape[0], -1, -1) # [B, 32, 768]
-                text_Qformer = self.qformer_tokenizer(
-                    text_input,
-                    padding='longest',
-                    truncation=True,
-                    max_length=256,
-                    return_tensors="pt",
-                ).to(images.device) # tokenized the text prompt as input to Qformer. Qformer.input_ids: tensor size [B, T]
-                query_atts = torch.ones(query_tokens.size()[:-1], dtype=torch.long).to(images.device) # [B, 32]
-                Qformer_atts = torch.cat([query_atts, text_Qformer.attention_mask],dim=1)
 
-                query_output = self.Qformer.bert(
-                    text_Qformer.input_ids,
-                    attention_mask=Qformer_atts,
-                    query_embeds=query_tokens,
-                    encoder_hidden_states=image_embeds,
-                    encoder_attention_mask=image_atts,
-                    return_dict=True,
-                    )
-
-                image_features = query_output.last_hidden_state[:,:query_tokens.size(1),:] # query_output.last_hidden_state: [batch, num_query + n_token, hidden_size_Bert]
-
-            ###########################################################################################
             if type(images) is list:
                 image_features = [self.mm_projector(image_feature)[0] for image_feature in image_features]
             else:
-                image_features = self.mm_projector(image_features) # [B, num_patch, config.hidden_size] = [4, 256, 4096], Z in CG-VLM or [B, num_query, config.hidden_size] = [4,32,4096] if using Qformer
+                image_features = self.mm_projector(image_features) # [B, num_patch, config.hidden_size] = [4, 256, 4096], Z in CG-VLM
             
-            
-            ##########
-            if self.contrastive:
-                align_input_embeds = []
-            ##########
             new_input_embeds = []
             cur_image_idx = 0
             for cur_input_ids, cur_input_embeds in zip(input_ids, inputs_embeds): #loop through each conversation in a batch, cur_input_embeds: [329, 4096]
@@ -386,13 +304,7 @@ class LlavaLlamaModel(LlamaModel):
                     if (cur_input_ids == vision_tower.config.im_start_token).sum() != (cur_input_ids == vision_tower.config.im_end_token).sum():
                         raise ValueError("The number of image start tokens and image end tokens should be the same.")
                     image_start_tokens = torch.where(cur_input_ids == vision_tower.config.im_start_token)[0]
-                    if self.contrastive: 
-                        image_end_tokens = torch.where(cur_input_ids == vision_tower.config.im_end_token)[0]
-                        pad_start_tokens = torch.where(cur_input_ids == 32000)[0]
-                        if pad_start_tokens.nelement() == 0: 
-                            pad_start_tokens = torch.tensor([len(cur_input_ids)]).to(cur_input_ids.device)
-                        else: 
-                            pad_start_tokens = pad_start_tokens[0].reshape(1)
+                    
                     for image_start_token_pos in image_start_tokens:
                         cur_image_features = image_features[cur_image_idx].to(device=cur_input_embeds.device)
                         num_patches = cur_image_features.shape[0]
@@ -408,16 +320,6 @@ class LlavaLlamaModel(LlamaModel):
                             cur_new_input_embeds = torch.cat((cur_input_embeds[:image_start_token_pos+1], cur_image_features, cur_input_embeds[image_start_token_pos + num_patches + 1:]), dim=0)
                         cur_image_idx += 1
                     new_input_embeds.append(cur_new_input_embeds)
-                    ##############
-                    if self.contrastive:
-                        for image_end_token_pos, pad_start_tokens_pos in zip(image_end_tokens, pad_start_tokens):
-                            cur_new_input_embeds = cur_input_embeds[image_end_token_pos+5:pad_start_tokens_pos-4]
-                        if self.contrastive_loss_type != "twins":
-                            align_input_embeds.append(cur_new_input_embeds)# list of [T_i, 4096], with T_i is length of sentence i in batch 
-                        else: 
-                            align_input_embeds.append(cur_new_input_embeds.mean(dim=0))
-
-                    ##############
                 else:
                     cur_image_features = image_features[cur_image_idx]
                     num_patches = cur_image_features.shape[0]
@@ -433,57 +335,14 @@ class LlavaLlamaModel(LlamaModel):
                         cur_new_input_embeds = torch.cat((cur_input_embeds[:mask_index_start], cur_image_features, cur_input_embeds[mask_index_start+num_patches:]), dim=0)
                     new_input_embeds.append(cur_new_input_embeds)
             inputs_embeds = torch.stack(new_input_embeds, dim=0) # [4,329,4096] ?
-            if self.contrastive and self.contrastive_loss_type == "twins": 
-                align_input_embeds = torch.stack(align_input_embeds, dim= 0) # [4,4096] ?
-            #####################
-            if self.contrastive:
-                # print("Use contrastive mechanism.")
-                align_image_features = image_features.clone() # [B, num_patch, config.hidden_size] = [4, 256, 4096], Z in CG-VLM
-                align_image_features_pool = align_image_features.mean(dim = 1) # [B, config.hidden_size] = [4,4096]
-                
-                if self.contrastive_loss_type == "infonce" or self.contrastive_loss_type == "siginfo":
-                    align_image_features_pool = align_image_features_pool/align_image_features_pool.norm(dim=1)[:, None]
-
-                    matrixSimi = torch.zeros(align_image_features.shape[0], align_image_features.shape[0], device=image_features.device, dtype=image_features.dtype)
-                    for i, align_input in enumerate(align_input_embeds): # align_input: [T_j, 4096], E^j
-                        align_input_norm = align_input/align_input.norm(dim=1)[:, None]
-                        # simi = F.cosine_similarity(align_image_features_pool[None, :, :], align_input[:,None,:], dim=-1).T
-                        simi = torch.mm(align_image_features_pool, align_input_norm.transpose(0, 1))
-
-                        simi = simi.mean(dim = 1)
-                        matrixSimi[:, i] = torch.exp(self.temperature)*simi
-                
-                    if self.contrastive_loss_type == "infonce":
-                        targetAlign = torch.arange(align_image_features.shape[0]).to(image_features.device)
-                        lossAlign = CrossEntropyLoss()(matrixSimi, targetAlign)
-                        lossAlign = lossAlign*self.alpha
-                    elif self.contrastive_loss_type == "siginfo":
-                        matrixSimi += self.beta
-                        targetAlign = (2*torch.eye(align_image_features.shape[0]) - torch.ones(align_image_features.shape[0])).to(image_features.device)
-                        lossAlign = -1.0*torch.sum(torch.nn.LogSigmoid()(matrixSimi*targetAlign))/align_image_features.shape[0]
-                        lossAlign = lossAlign*self.alpha
-                elif self.contrastive_loss_type == "twins": # TODO: fix twins by duplicating one image to the number of tokens in the corresponding sequence and applying eq (3) in CG-VLM
-                    c = self.bn(align_image_features_pool).T @ self.bn(align_input_embeds)
-                    c.div_(align_image_features_pool.shape[0]*torch.cuda.device_count())
-                    torch.distributed.all_reduce(c)
-                    on_diag = torch.diagonal(c).add_(-1).pow_(2).sum()
-                    off_diag = self.off_diagonal(c).pow_(2).sum()
-                    lossAlign = on_diag + self.lambd * off_diag
-                    lossAlign = lossAlign*self.alpha
-                    
-            #####################
-        if not hasattr(self, 'alpha'):
-            self.alpha = 1.0
-
-        if not hasattr(self, 'temperature'):
-            self.temperature = torch.tensor(0)
+            
             
         return super(LlavaLlamaModel, self).forward(
             input_ids=None, attention_mask=attention_mask, past_key_values=past_key_values,
             inputs_embeds=inputs_embeds, use_cache=use_cache,
             output_attentions=output_attentions, output_hidden_states=output_hidden_states,
             return_dict=return_dict
-        ), lossAlign, self.alpha, torch.exp(self.temperature)
+        )
 
 
 class LlavaLlamaForCausalLM(LlamaForCausalLM):
@@ -519,7 +378,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM):
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
 
         # decoder outputs consists of (dec_features, layer_state, dec_hidden, dec_attn)
-        outputs, lossAlign, alphaArg, tempPa = self.model(
+        outputs = self.model(
             input_ids=input_ids,
             attention_mask=attention_mask,
             text_input = text_input,
@@ -547,8 +406,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM):
             # Enable model/pipeline parallelism
             shift_labels = shift_labels.to(shift_logits.device)
             loss = loss_fct(shift_logits, shift_labels)
-        if loss is not None: 
-            loss = loss + lossAlign
+
         if not return_dict:
             output = (logits,) + outputs[1:]
             return (loss,) + output if loss is not None else output
