@@ -134,7 +134,7 @@ huggingface-cli download --resume-download --local-dir-use-symlinks False MERGE-
 Below: load **ExGra-Med** fine-tuned on SV-CoT from Hugging Face and generate answer and grounded rationale.
 
 ```
-cd architectures/Exgra-Med-CoT
+cd architectures/Exgra-Med
 
 # Then, choosing one of two ways below:
 bash bashscript/run_infer_demo.py 
@@ -176,7 +176,7 @@ All training/eval configs for each model live in ```s_chain/configs/<model_name>
 To **train** a model (e.g., **Exgra-Med**) with any setting, first you need to move into the corresponding folder in ``./architectures`` and follow the README carefully, then run:
 
 ```
-cd architectures/Exgra-Med-CoT
+cd architectures/Exgra-Med
 
 bash bashscript/sv_cot_rag.sh
 ```
@@ -184,7 +184,7 @@ bash bashscript/sv_cot_rag.sh
 To **evaluate**:
 
 ```
-cd architectures/Exgra-Med-CoT
+cd architectures/Exgra-Med
 
 python llava/eval/run_med_datasets_eval_batch_CoT.py \
     --num-chunks 2 \
