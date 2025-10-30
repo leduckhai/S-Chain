@@ -108,7 +108,7 @@ We show that supervising VLMs with SV-CoT:
 
 ## 📣 News
 
-- **[Oct 2025]** Updated experiment scripts and checkpoints for ExGra-Med and LLaVA-Med. See the [readme](architectures/Exgra-Med-CoT/README.md) for detailed instructions.
+- **[Oct 2025]** Released experiment scripts and checkpoints for two state-of-the-art medical MLLMs with [ExGra-Med](https://exgra-med.github.io/) and [LLaVA-Med](https://github.com/microsoft/LLaVA-Med). 
 - **[Oct 2025]** Dataset and project site released.
 
 ## 🗂 Repo layout
