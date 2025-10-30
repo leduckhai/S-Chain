@@ -5,7 +5,6 @@
 [![Dataset](https://img.shields.io/badge/📂%20Dataset-S--Chain%20Data-blue)](https://huggingface.co/datasets/leduckhai/S-Chain)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/leduckhai/S-Chain/blob/main/DATASET_LICENSE.md)
 [![Website](https://img.shields.io/badge/🌐%20Project%20Page-S--Chain-green)](https://s-chain.github.io/)
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/leduckhai/S-Chain)
 
 ---
 
@@ -15,29 +14,29 @@
 
 <p align="center">
   <a href="https://github.com/leduckhai" target="_blank"><strong>Khai Le-Duc</strong></a><sup>* 1,2✉</sup>, 
-  <a href="https://scholar.google.com/citations?user=_NIyeykAAAAJ&hl=en" target="_blank"><strong>Duy M. H. Nguyen</strong></a><sup>* 3,4,24✉</sup>, 
+  <a href="https://duyhominhnguyen.github.io/" target="_blank"><strong>Duy M. H. Nguyen</strong></a><sup>* 3,4,24✉</sup>, 
   <a href="https://scholar.google.com/citations?user=5CbQH_kAAAAJ&hl=en" target="_blank"><strong>Phuong T. H. Trinh</strong></a><sup>* 5</sup>, 
-  <strong>Tien-Phat Nguyen</strong><sup>* 6</sup>,  
+  <a href="https://scholar.google.com/citations?user=9TmpAVwAAAAJ&hl=en" target="_blank"><strong>Tien-Phat Nguyen</strong></a><sup>* 6</sup>,  
   Nghiem T. Diep<sup>** 3</sup>, 
   An Ngo<sup>** 7</sup>, 
   Tung Vu<sup>** 8</sup>, 
-  <a href="https://scholar.google.com/citations?user=trFdwLkAAAAJ&hl=en" target="_blank"><strong>Trinh Vuong</strong></a><sup>9</sup>, 
+  Trinh Vuong<sup>9</sup>, 
   Anh-Tien Nguyen<sup>10,11</sup>,  
   Mau Nguyen<sup>12</sup>, 
   Van Trung Hoang<sup>13</sup>, 
-  <a href="https://scholar.google.com/citations?user=IMryD1YAAAAJ&hl=en" target="_blank"><strong>Khai-Nguyen Nguyen</strong></a><sup>14</sup>, 
-  <a href="https://scholar.google.com/citations?user=ZAuQIqwAAAAJ&hl=en" target="_blank"><strong>Hy Nguyen</strong></a><sup>15</sup>, 
+  Khai-Nguyen Nguyen<sup>14</sup>, 
+  Hy Nguyen<sup>15</sup>, 
   Chris Ngo<sup>2</sup>,  
-  <a href="https://scholar.google.com/citations?user=k_4zYecAAAAJ&hl=en" target="_blank"><strong>Anji Liu</strong></a><sup>16</sup>, 
-  <a href="https://scholar.google.com/citations?user=Xs7cKMwAAAAJ&hl=en" target="_blank"><strong>Nhat Ho</strong></a><sup>17</sup>, 
-  <a href="https://scholar.google.com/citations?user=Khifj_MAAAAJ&hl=en" target="_blank"><strong>Anne-Christin Hauschild</strong></a><sup>11</sup>, 
-  <a href="https://scholar.google.com/citations?user=SmqouhIAAAAJ&hl=en" target="_blank"><strong>Khanh Xuan Nguyen</strong></a><sup>18</sup>,  
-  <a href="https://scholar.google.com/citations?user=UrTlMiwAAAAJ&hl=en" target="_blank"><strong>Thanh Nguyen-Tang</strong></a><sup>19</sup>, 
-  <a href="https://scholar.google.com/citations?user=cnncomYAAAAJ&hl=en" target="_blank"><strong>Pengtao Xie</strong></a><sup>20,21</sup>, 
+  <a href="https://liuanji.github.io/" target="_blank"><strong>Anji Liu</strong></a><sup>16</sup>, 
+  <a href="https://nhatptnk8912.github.io/" target="_blank"><strong>Nhat Ho</strong></a><sup>17</sup>, 
+  <a href="https://achauschild.wordpress.com/" target="_blank"><strong>Anne-Christin Hauschild</strong></a><sup>11</sup>, 
+  <a href="https://machineslearner.com/" target="_blank"><strong>Khanh Xuan Nguyen</strong></a><sup>18</sup>,  
+  <a href="https://thanhnguyentang.github.io/" target="_blank"><strong>Thanh Nguyen-Tang</strong></a><sup>19</sup>, 
+  <a href="https://pengtaoxie.github.io/" target="_blank"><strong>Pengtao Xie</strong></a><sup>20,21</sup>, 
   <a href="https://scholar.google.com/citations?user=v7i6Uz4AAAAJ&hl=en" target="_blank"><strong>Daniel Sonntag</strong></a><sup>3,22</sup>,  
-  <a href="https://scholar.google.com/citations?user=23ZXZvEAAAAJ&hl=en" target="_blank"><strong>James Zou</strong></a><sup>23</sup>, 
-  <a href="https://scholar.google.com/citations?user=p5vLzq0AAAAJ&hl=en" target="_blank"><strong>Mathias Niepert</strong></a><sup>4,24</sup>, 
-  <a href="https://scholar.google.com/citations?user=EQw8d9AAAAAJ&hl=en" target="_blank"><strong>Anh Totti Nguyen</strong></a><sup>25✉</sup>
+  <a href="https://www.james-zou.com/" target="_blank"><strong>James Zou</strong></a><sup>23</sup>, 
+  <a href="https://www.matlog.net/" target="_blank"><strong>Mathias Niepert</strong></a><sup>4,24</sup>, 
+  <a href="https://anhnguyen.me/" target="_blank"><strong>Anh Totti Nguyen</strong></a><sup>25✉</sup>
 </p>
 
 
