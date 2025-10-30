@@ -1,7 +1,7 @@
 prompt_mode=cot
 use_rag=true
-output_dir=./weights_finetuned/CoT-100${version}
-answers_file=./test_answer/CoT-100${version}.jsonl
+output_dir=./checkpoints/exgra-med-gpt-medrag-schain
+answers_file=./test_answer/exgra-med-gpt-medrag-schain.jsonl
 
 test_file_json=./data/llava_med_mri_bbox_test_CoT.json
 image_folder=./data/images

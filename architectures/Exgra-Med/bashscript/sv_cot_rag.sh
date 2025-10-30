@@ -7,8 +7,8 @@ batchsize=16
 prompt_mode=cot
 use_rag=true
 version=_exgra_med_on_CoT_dataset_epochs${epochs}_batchsize${batchsize}_lr${lr}_prompt_mode_${prompt_mode}_useRAG${use_rag}
-model_name_or_path=./models/checkpoint_llava_med_instruct_60k_inline_mention_version_1-5_1e0_multi_graph_100_scale_test_bugfix
-output_dir=./weights_finetuned/CoT-100${version}
+model_name_or_path=./checkpoints/exgra-med
+output_dir=./checkpoints/CoT-100${version}
 run_name=CoT-100${version}
 answers_file=./test_answer/CoT-100${version}.jsonl
 
