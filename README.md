@@ -191,7 +191,7 @@ Each ```*.jsonl``` record contains:
 | `exgra-med-gpt-medrag-schain`                            | ExGra-Med with medical retrieval augmented generation and S-Chian                    | [Link](https://huggingface.co/leduckhai/S-Chain/tree/main/exgra-med-gpt-medrag-schain)     |
 
 <!-- --- -->
-Before starting the finetuning/inference/evaluation, download our finetuned checkpoints, e.g., ```exgra-med-gpt-schain``` at this [link](https://huggingface.co/leduckhai/S-Chain/tree/main/exgra-med-gpt-schain) and put it inside ```architectures/Exgra-Med/checkpoints```
+Before starting the finetuning/inference/evaluation, download our finetuned checkpoints, e.g., download folder ```exgra-med-gpt-schain``` at this [link](https://huggingface.co/leduckhai/S-Chain/tree/main/exgra-med-gpt-schain) and put it inside ```architectures/Exgra-Med/checkpoints```
 <!-- <details>
   <summary>Download Checkpoints</summary>
 
