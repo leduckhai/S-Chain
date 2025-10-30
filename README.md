@@ -192,7 +192,7 @@ Each ```*.jsonl``` record contains:
 
 <!-- --- -->
 Before starting the finetuning/inference/evaluation, download our finetuned checkpoints and put it inside ```architectures/model_name/checkpoints```
-<details>
+<!-- <details>
   <summary>Download Checkpoints</summary>
 
 ```bash
@@ -212,7 +212,7 @@ huggingface-cli download --resume-download --local-dir-use-symlinks False MERGE-
 
 ```
 
-</details>
+</details> -->
 
 
 ### 3. Run inference with a pretrained checkpoint
