@@ -84,6 +84,23 @@
   the father of Vietnamese traditional medicine ✨
 </p>
 
+<details>
+  <summary><strong>📚 Table of Contents</strong></summary>
+
+- [🔍 What is S-Chain?](#what-is-s-chain)
+- [📣 News](#news)
+- [🗂 Repo layout](#repo-layout)
+- [I. Quickstart](#i-quickstart)
+  - [1. 📥 Download the S-Chain dataset](#1-download-the-s-chain-dataset)
+  - [2. 📦 Choose Model Checkpoints](#2-choose-model-checkpoints)
+  - [3. Run inference with a pretrained checkpoint](#3-run-inference-with-a-pretrained-checkpoint)
+- [II. 🧪 Reproducing experiments](#ii-reproducing-experiments)
+  - [Currently Available Models](#currently-available-models)
+- [Citation](#citation)
+- [⚖️ Important Notice on Dataset Usage](#important-notice-on-dataset-usage)
+
+</details>
+
 ## 🔍 What is S-Chain?
 
 S-Chain is the first large-scale dataset of **Structured Visual Chain-of-Thought (SV-CoT)**:
