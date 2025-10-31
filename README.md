@@ -87,7 +87,7 @@
 <details>
   <summary><strong>📚 Table of Contents</strong></summary>
 
-- [🔍 What is S-Chain?](#what-is-s-chain)
+- [🔍 What is S-Chain?](#-what-is-s-chain)
 - [📣 News](#news)
 - [🗂 Repo layout](#repo-layout)
 - [I. Quickstart](#i-quickstart)
