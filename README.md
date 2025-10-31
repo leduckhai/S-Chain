@@ -85,7 +85,7 @@
 </p>
 
 <details>
-  <summary><strong>📚 Table of Contents</strong></summary>
+  <summary><strong>📚 Table of Contents</strong> (click to expand)</summary>
 
 - [🔍 What is S-Chain?](#-what-is-s-chain)
 - [📣 News](#-news)
