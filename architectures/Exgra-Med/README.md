@@ -7,7 +7,7 @@
 ### Usage
 
 #### Exgra-Med
-To run the model settings on our dataset, check running files in folder bashscript. Then, create folder ``./checkpoints`` and download the Exgra-Med weight from [link](https://exgra-med.github.io/) and put into ``./checkpoints`` folder before running.
+To run the model settings on our dataset, firstly, following this repo [link](https://github.com/microsoft/LLaVA-Med/tree/v1.0.0) to install necessary packages. Then, check running files in folder bashscript. Next, create folder ``./checkpoints`` and download the Exgra-Med weight from [link](https://exgra-med.github.io/) and put into ``./checkpoints`` folder before running.
 
 #### LLaVA-Med
 Because the Exgra-Med and LLaVA-Med use the same codebase for finetuning, you can change variables ``model_name_or_path`` (for original weight) and ``version`` (for version running) in running ``.sh`` scripts to finetune LLaVA-Med on this dataset. The checkpoint for LLaVA-Med can be also downloaded in this [link](https://exgra-med.github.io/).
