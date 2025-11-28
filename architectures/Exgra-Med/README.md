@@ -4,6 +4,38 @@
 
 </div>
 
+### Installation
+
+**Prerequisites**
+- Python >= 3.10
+- PyTorch
+- A working CUDA driver (GPU recommended)
+
+**Note:** Install the PyTorch build that matches your CUDA version. Below is an example setup for CUDA 11.x:
+
+```bash
+conda create -n exgra-med python=3.10
+conda activate exgra-med
+
+pip install --upgrade pip
+pip install torch==2.0.0+cu117 torchvision==0.15.1+cu117 torchaudio==2.0.1 \
+  --index-url https://download.pytorch.org/whl/cu117
+
+pip install openai==0.27.8
+pip install git+https://github.com/huggingface/transformers@cae78c46
+pip install -e .
+pip install einops ninja open-clip-torch shortuuid nltk
+```
+**Flash Attention 2 (required):**
+Select the FlashAttention2 release compatible with your CUDA/PyTorch versions (see: [link](https://github.com/Dao-AILab/flash-attention/releases)), then install: 
+```bash
+pip install flash-attn --no-build-isolation
+```
+
+For installation troubleshooting or additional setup details, please refer to the original repositories:
+- [ExGra-Med Repository](https://exgra-med.github.io/)
+- [LLaVA-Med Repository](https://github.com/microsoft/LLaVA-Med)
+
 ### Usage
 To run the model settings on our dataset, check running files in folder bashscript. Then, download the Exgra-Med weight from [link](https://exgra-med.github.io/) and put into ``models`` folder before running. Because the Exgra-Med and LLaVA-Med use the same codebase for finetuning, you can change variables ``model_name_or_path`` (for original weight) and ``version`` (for version running) in running ``.sh`` scripts to finetune LLaVA-Med on this dataset. The checkpoint for LLaVA-Med can be also downloaded in this [link](https://exgra-med.github.io/).
 
