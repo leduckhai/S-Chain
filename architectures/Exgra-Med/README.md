@@ -14,22 +14,22 @@
 **Note:** Install the PyTorch build that matches your CUDA version. Below is an example setup for CUDA 11.x:
 
 ```bash
-conda create -n exgra-med python=3.10
+conda create -n exgra-med python=3.10.12
 conda activate exgra-med
 
 pip install --upgrade pip
-pip install torch==2.0.0+cu117 torchvision==0.15.1+cu117 torchaudio==2.0.1 \
-  --index-url https://download.pytorch.org/whl/cu117
-
+pip install torch==2.1.2+cu118 torchvision==0.16.2+cu118 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu118
 pip install openai==0.27.8
 pip install git+https://github.com/huggingface/transformers@cae78c46
 pip install -e .
+
 pip install einops ninja open-clip-torch shortuuid nltk
+pip install --upgrade pillow
 ```
 **Flash Attention 2 (required):**
 Select the FlashAttention2 release compatible with your CUDA/PyTorch versions (see: [link](https://github.com/Dao-AILab/flash-attention/releases)), then install: 
 ```bash
-pip install flash-attn --no-build-isolation
+pip install flash-attn==2.5.7 --no-build-isolation
 ```
 
 For installation troubleshooting or additional setup details, please refer to the original repositories:
