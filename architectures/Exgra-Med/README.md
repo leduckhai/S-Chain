@@ -37,7 +37,7 @@ For installation troubleshooting or additional setup details, please refer to th
 - [LLaVA-Med Repository](https://github.com/microsoft/LLaVA-Med)
 
 ### Usage
-To run the model settings on our dataset, first check this [link](https://huggingface.co/datasets/leduckhai/S-Chain/tree/main/English) to download two ``.json`` dataset files for training and testing and put into folder ``./data`` and gather all image files in parquet files in that link into ``./images`` folder and put this folder into folder ``./data``, then check running files in folder bashscript. Next, download the Exgra-Med weight from [link](https://exgra-med.github.io/) and put into ``models`` folder before running. Because the Exgra-Med and LLaVA-Med use the same codebase for finetuning, you can change variables ``model_name_or_path`` (for original weight) and ``version`` (for version running) in running ``.sh`` scripts to finetune LLaVA-Med on this dataset. The checkpoint for LLaVA-Med can be also downloaded in this [link](https://exgra-med.github.io/).
+To run the model settings on our dataset, first check this [link](https://huggingface.co/datasets/leduckhai/S-Chain/tree/main/English) to download two ``.json`` dataset files (Cot without RAG settings) for training and testing and put into folder ``./data`` and gather all image files in parquet files in that link into ``./images`` folder and put this folder into folder ``./data``, then check running files in folder bashscript. Next, download the Exgra-Med weight from [link](https://exgra-med.github.io/) and put into ``models`` folder before running. Because the Exgra-Med and LLaVA-Med use the same codebase for finetuning, you can change variables ``model_name_or_path`` (for original weight) and ``version`` (for version running) in running ``.sh`` scripts to finetune LLaVA-Med on this dataset. The checkpoint for LLaVA-Med can be also downloaded in this [link](https://exgra-med.github.io/).
 
 In these files in ``bashscript`` folder, we can change settings.
 ```Shell
@@ -46,9 +46,9 @@ export WANDB_API_KEY= #<your_wandb_key>
 lr=2e-5
 epochs=3
 batchsize=16
-prompt_mode=simple # cot for running CoT mode or simple for running original mode
-use_rag=true # True if use RAG to change to RAG system prompt, else False
-version=_exgra_med_on_No_CoT_dataset_epochs${epochs}_batchsize${batchsize}_lr${lr}_prompt_mode_${prompt_mode}_useRAG${use_rag}
+prompt_mode=cot # cot for running CoT mode or simple for running original mode
+use_rag=false # True if use RAG to change to RAG system prompt, else False
+version=_exgra_med_on_CoT_dataset_epochs${epochs}_batchsize${batchsize}_lr${lr}_prompt_mode_${prompt_mode}_useRAG${use_rag}
 model_name_or_path=./models/exgra-med # Path for original Exgra-Med weight
 output_dir=./weights_finetuned/CoT-100${version} # Output checkpoint
 run_name=CoT-100${version}
