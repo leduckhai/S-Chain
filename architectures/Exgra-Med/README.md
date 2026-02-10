@@ -23,7 +23,7 @@ pip install openai==0.27.8
 pip install git+https://github.com/huggingface/transformers@cae78c46
 pip install -e .
 
-pip install einops ninja open-clip-torch shortuuid nltk
+pip install einops ninja open-clip-torch shortuuid nltk scikit-learn tabulate
 pip install --upgrade pillow
 ```
 **Flash Attention 2 (required):**
